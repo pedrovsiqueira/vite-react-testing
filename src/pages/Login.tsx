@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../server/axiosInstance";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,6 +16,7 @@ const Login: React.FC = () => {
       });
       console.log("Login successful:", response.data);
       localStorage.setItem("authToken", response.data.token);
+      navigate("/protected");
     } catch (error) {
       console.error("Login error:", error);
     }
